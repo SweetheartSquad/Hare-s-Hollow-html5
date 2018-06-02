@@ -1,0 +1,303 @@
+@font-face {
+	font-family: Mathlete-Skinny;
+	src: url(./font/Mathlete-Skinny.woff);
+}
+
+/* layout */
+
+html,
+body,
+.resizer {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	font-family: Mathlete-Skinny, Arial, sans-serif;
+	font-size: 1.8rem;
+	color: #c3ae9b;
+}
+
+@media (max-width: 1600px) {
+	.resizer {
+		font-size: 1.4rem;
+	}
+}
+
+@media (max-height: 800px) {
+	.resizer {
+		font-size: 1.4rem;
+	}
+}
+
+@media (max-width: 900px) {
+	.resizer {
+		font-size: 1rem;
+	}
+}
+
+@media (max-height: 500px) {
+	.resizer {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 600px) {
+	.resizer {
+		font-size: .6rem;
+	}
+}
+
+@media (max-height: 200px) {
+	.resizer {
+		font-size: .6rem;
+	}
+}
+
+html {
+	overflow: auto;
+	background-color: #1e542a;
+}
+
+/* play button */
+
+.resizer button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 5rem !important;
+	height: 5rem !important;
+	border-radius: 50%;
+	cursor: pointer;
+	color: transparent;
+	font-size: 0;
+	outline: none;
+	border: solid .5rem #c3ae9b;
+	background: transparent;
+	transform: scale(.75);
+	opacity: .66;
+	transition: transform .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.resizer button:hover {
+	transform: scale(1);
+}
+
+.resizer button:active {
+	transform: scale(1.1);
+}
+
+.resizer button:focus {
+	opacity: 1;
+}
+
+.resizer button::after {
+	content: '';
+	background: transparent;
+	border-left: 1.6rem solid #c3ae9b;
+	border-top: 1rem solid transparent;
+	border-bottom: 1rem solid transparent;
+	width: 0;
+	height: 0;
+	margin-left: 0.25rem;
+}
+
+/* loader */
+
+.resizer p {
+	width: initial !important;
+	height: initial !important;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* game */
+
+body {
+	transition: background-color 1.0s ease-in-out;
+}
+
+img {
+	user-select: none;
+}
+
+.mouse {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	background-image: url('./textures/fox.svg');
+	background-size: contain;
+	background-position: left top;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	z-index: 100;
+}
+
+.resizer>main>.bg {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	transition: opacity 1.0s ease-in-out;
+}
+
+.resizer>main::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(./textures/frame.svg);
+	background-position: center center;
+	background-repeat: no-repeat no-repeat;
+	background-size: contain;
+	pointer-events: none;
+	transition: opacity 1.0s ease-in-out;
+}
+
+.resizer>main>.text {
+	position: absolute;
+	top: 84%;
+	bottom: 6%;
+	left: 10%;
+	right: 10%;
+	overflow-y: visible;
+	padding: 0;
+	margin: 0;
+	flex-wrap: wrap;
+}
+
+.resizer>main>.text span {
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	animation-duration: .25s;
+	animation-iteration-count: 1;
+}
+
+.resizer>main>.speaker {
+	position: absolute;
+	top: 73.7%;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 5.5%;
+	height: 0;
+	padding-bottom: 5.5%;
+	background-image: none;
+	background-size: contain;
+	background-repeat: no-repeat no-repeat;
+	background-position: center center;
+	border-radius: 50%;
+	transition: opacity 1.0s ease-in-out;
+}
+
+.resizer>main>.options {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 45%;
+	width: 100%;
+	text-align: center;
+}
+
+.resizer>main>.options a {
+	display: inline-block;
+	padding: .1em;
+	margin: .1em;
+	min-width: 33%;
+	border: solid 2px #c3ae9b;
+	border-radius: 2px;
+	background: #1e542a;
+	color: inherit;
+	text-decoration: none;
+}
+
+.resizer>main>.options a[hover="true"] {
+	background-color: #6f8263
+}
+
+.resizer>main>.options a.disabled {
+	background-color: rgba(50, 50, 50, 0.5);
+	pointer-events: none;
+}
+
+@keyframes text {
+	0% {
+		transform: scale(1.25);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1.0);
+		opacity: 1;
+	}
+}
+
+/* menu */
+
+.menu .resizer>main>.options,
+.Options .resizer>main>.options,
+.Stats .resizer>main>.options {
+	flex-direction: column;
+	padding-left: 36%;
+	box-sizing: border-box;
+	top: 30%;
+}
+
+.menu .options::before {
+	content: "Hare's Hollow";
+}
+
+.Options .options::before {
+	content: "Options";
+}
+
+.menu .speaker,
+.Options .speaker,
+.Stats .speaker {
+	opacity: 0;
+}
+
+.Stats .resizer>main>.text {
+	left: 0%;
+	right: 0%;
+	top: 0%;
+	bottom: 0%;
+	padding-right: 36%;
+}
+
+.Stats .resizer>main>.text table {
+	background: #1e542a;
+	border: solid 2px #c3ae9b;
+	border-radius: 2px;
+	table-layout: fixed;
+}
+
+.Stats .resizer>main>.text table td {
+	border-bottom: solid 2px #c3ae9b;
+	padding: 0.1em;
+}
+
+.Stats .resizer>main>.text table tr:last-child td {
+	border-bottom: none;
+}
+
+.Stats .resizer>main>.text table tr:first-child td {
+	font-size: 1.1em;
+}
+
+.menu .resizer>main::after,
+.Options .resizer>main::after,
+.Stats .resizer>main::after,
+.censored .resizer>main::after,
+.CREDITS .resizer>main::after {
+	opacity: 0;
+}

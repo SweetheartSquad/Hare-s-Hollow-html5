@@ -1,0 +1,22 @@
+{
+	"Mayor Hare": {
+		"Ate": 0,
+		"Spared": 0
+	},
+	"Dormouse": {
+		"Ate": 0,
+		"Spared": 0
+	},
+	"Marten": {
+		"Ate": 0,
+		"Spared": 0
+	},
+	"Chipmunk": {
+		"Ate": 0,
+		"Spared": 0
+	},
+	"Squirrel": {
+		"Ate": 0,
+		"Spared": 0
+	}
+}

@@ -1,0 +1,1081 @@
+::menu
+<<set menu=true>>
+<<if !this.started>>
+<<set portrait="MENU">>
+<<set bg="#1e542a">>
+<<endif>>
+[[New Game]]
+<<if this.started>>
+[[Continue Game|this.menu=false;this.back();]]
+<<endif>>
+[[Options|this.goto("Options").then(this.renderer.showOptions);]]
+
+::Options
+<<set toggleDisabled=function(){this.renderer.censored=!this.renderer.censored;this.renderer.options.children[0].innerHTML="Graphic Images: " + (this.renderer.censored ? "Disabled" : "Enabled");}>>
+<<if this.renderer.censored>>
+[[Graphic Images: Disabled|this.toggleDisabled();]]
+<<else>>
+[[Graphic Images: Enabled|this.toggleDisabled();]]
+<<endif>>
+[[Back|this.back().then(this.renderer.showOptions);]]
+
+::Stats
+<<do this.renderer.showStats()>>
+[[Back|this.back().then(this.renderer.showOptions);]]
+
+
+::content-warning
+This work of fiction contains graphic scenes. Would you like to censor these?
+[[Yes|this.renderer.censored=true;this.goto("START");]]
+[[No|this.renderer.censored=false;this.goto("START");]]
+
+::New Game
+<<set menu=false>>
+<<set started=true>>
+<<set HUNGER=.01>>
+<<set OPTION=undefined>>
+<<set portrait="BLACK">>
+<<set bg="#000000">>
+None: Click to progress through text.
+[[auto|content-warning]]
+
+::START
+<<set portrait="FOREST_BEAVER">>
+<<set bg="#1e542a">>
+None: As usual, your morning starts with a visit from your neighbour.
+[[auto|start2]]
+
+::start2
+Beaver: "Morning, Fox!"
+[[Be friendly|this.greeting=1;this.goto("GREET_BEAVER");]]
+[[Be reserved|this.greeting=2;this.goto("GREET_BEAVER");]]
+
+::GREET_BEAVER
+<<if this.greeting==1>>
+Fox: "Beaver! Good to see you. What's the plan for today?"
+<<else>>
+Fox: "Hey, Beaver."
+<<endif>>
+~
+Beaver: "Marten's had the idea to take a dip in the river. Want to join?"
+~
+Fox: "Yeah, I might for a bit."
+~
+<<set portrait="RIVER">>
+None: You walk down to the river with Beaver.
+~
+<<set portrait="RIVER_MARTEN_WOLF">>
+None: Marten is already in the water. Wolf is standing by the shore.
+~
+Marten: "Heyo! Come have a dip with us, yeah?"
+~
+Wolf: "It's a bit cold..."
+~
+Marten: "That's quitter talk, Wolf!"
+~
+<<set portrait="RIVER_MARTEN_BEAVER">>
+Beaver: "Well, I'm coming in. Fox?"
+~
+Fox: "I, uh, might take a walk first."
+~
+Marten:  "That's all you ever want to do. C'mon, take a swim! You'll like it!"
+~
+Fox: "I'll swim when I get back, promise."
+~
+Marten: "Alright, but I'm holding you to that. Hurry back."
+~
+<<set portrait="CLEARING">>
+None: You wander a long way into the woods.
+~
+<<set portrait="GROUNDHOG_FALL">>
+None: All of a sudden, an animal falls to the ground in front of you.
+~
+<<set portrait="CLEARING_HAWK">>
+None: Another animal flies down from above and begins to eat the first.
+~
+None: You feel sick.
+~
+None: You've never seen an animal do this before.
+~
+None: You feel a strange, uncomfortable chill over your whole body.
+~
+None: You can barely stand to watch. You make a retching noise.
+~
+None: The new animal hears you and looks up. He bristles.
+~
+Hawk: Piss off, scav! This is my kill!
+~
+None: Not knowing what to say, you run back to the others.
+~
+<<set portrait="RIVER_MARTEN_BEAVER">>
+None: Marten and Beaver are still in the river. Wolf seems to have left.
+~
+Marten: "You okay, Fox? Walk too fast?"
+~
+Beaver: "You do look pretty ill, Fox. What happened?"
+[[Something|this.goto("TELL_THEM_SOMETHING");]]
+[[Nothing|this.goto("TELL_THEM_NOTHING");]]
+
+::TELL_THEM_SOMETHING
+Fox: "I saw something. Out there, in a clearing."
+~
+Beaver: "What did you see?"
+[[A murder|this.SAW_MURDER=1;this.goto("A_MURDER");]]
+[[I don't know|this.SAW_MURDER=0;this.goto("DONT_KNOW");]]
+
+::A_MURDER
+Fox: "There was... there was an animal. He fell right out of the sky in front of me."
+~
+Marten: "As animals are known to do, of course."
+~
+Fox: "And... there was another animal. Flew down from the sky and..."
+~
+Fox: "He started... eating... the other one."
+~
+Beaver: "What?"
+~
+Marten: "You're nutty, Fox. This is some bit."
+~
+Fox: "No, I... I really saw it!"
+~
+Beaver: "Fox, are you sure?"
+~
+Marten: "Come on now, Fox is just having a laugh! What part of that story sounds true!"
+~
+Fox: "I don't.. I don't know. But I saw it. That flying one was... crazy. He was just..."
+~
+Marten: "Go eat something, Fox. You always get a little loopy when you're hungry."
+~
+Fox: "I'm not... I... "
+~
+Beaver: "Er... maybe you should take a nap, Fox."
+~
+Fox: "..."
+~
+Fox: "Fine."
+~
+None: You head back to the Hollow, confused by what you saw.
+[[auto|NIGHT_ONE]]
+
+::DONT_KNOW
+Fox: "I... don't know. I think... well... I'm not sure."
+~
+Marten: "Hallucations, I suspect! I bet you forgot to eat breakfast again, didn't you?"
+~
+Marten: "You're always a bit loopy when you're hungry."
+~
+Beaver: "Maybe you should take a nap, Fox."
+~
+Fox: "I think I will."
+[[auto|NIGHT_ONE]]
+
+::TELL_THEM_NOTHING
+Fox: "Nothing, I just... feel a little ill."
+~
+None: Marten sighs dramatically.
+~
+Marten: "I suppose you're not well enough to swim then?"
+~
+Beaver: "Maybe you should take a nap, Fox."
+~
+Fox: "I think I will."
+[[auto|NIGHT_ONE]]
+
+::NIGHT_ONE
+<<set portrait="FOREST_NIGHT_WOLF">>
+<<set bg="#133636">>
+None: On your way back to the Hollow, you run into Wolf.
+~
+None: He is very flustered.
+~
+Wolf: "Fox, uh, you were there, right? You saw it too?"
+~
+Fox: "What do you mean?"
+~
+Wolf: "Out past the river. You, uh, saw the murder?"
+[[Yes|this.goto("TELL_WOLF_TRUTH");]]
+[[No|this.goto("LIE_TO_WOLF");]]
+
+::TELL_WOLF_TRUTH
+Fox: "Yeah. I did."
+~
+Wolf: "I... can't believe it. Right? Why did he... and.. well... Wow! You know?"
+~
+Fox: "I don't know. It seems crazy. It is crazy. I thought I dreamed it."
+~
+Wolf: "I... we can't tell anyone, right? That would be too weird.  I..."
+~
+Wolf: "Promise not to tell anyone?"
+
+[[Sure|this.goto("STAY_QUIET");]]
+[[No|this.goto("MUST_TELL");]]
+
+::STAY_QUIET
+Fox: "Sure, I guess."
+~
+Wolf: "I.. I think it's for the best. We don't want anyone to panic..."
+~
+Fox: "Ok. But if we see that flying guy again, we've got to warn the mayor."
+~
+Wolf: "Yeah, sure, sure... we'll tell him later..."
+<<set TELL_MAYOR=0>>
+[[auto|MORNING]]
+
+::MUST_TELL
+Fox: "We have to tell everyone! That animal is dangerous!"
+~
+Wolf: "But they... they won't understand! They'll panic! Please... we can't tell. Don't tell!"
+~
+Fox: "Well, we should at least tell the mayor!"
+~
+Wolf: "Okay, okay... fine, I'll... I'll go tell him."
+<<set TELL_MAYOR=1>>
+~
+<<set portrait="FOREST_NIGHT">>
+<<set bg="#133636">>
+None: Wolf wanders off, shaken.
+[[auto|MORNING]]
+
+::LIE_TO_WOLF
+Fox: "What are you talking about?"
+~
+Wolf: "Oh! I, uh, I thought... well... never mind."
+~
+Fox: "See you later, Wolf."
+<<set TELL_MAYOR=0>>
+~
+<<set portrait="FOREST_NIGHT">>
+<<set bg="#133636">>
+None: You walk back to your den and go to bed.
+[[auto|MORNING]]
+
+::MORNING
+<<set portrait="BLACK">>
+<<set bg="#000000">>
+None: Your sleep that night is unpleasant.
+<<set OPTION="???">>
+~
+<<set portrait="FOREST_DAY2">>
+<<set bg="#1e542a">>
+None: In the morning, you wake and leave your den.
+~
+<<set portrait="FOREST_DAY2_MARTEN">>
+None: You see Marten. He looks pale.
+~
+Fox: "Marten? What's wrong?"
+~
+Marten: "I... He... He's dead..."
+<<if this.SAW_MURDER>>
+[[auto|morningate]]
+<<else>>
+[[auto|morning4]]
+<<endif>>
+
+::morningate
+Marten: "It-- it ate him..."
+~
+Fox: "Drop it, Marten! I'm not in the mood."
+~
+Marten: "I'm serious!"
+~
+Fox: "So am I! Stop it!"
+[[auto|morning5]]
+
+::morning4
+Fox: "W-what are you saying, Marten? Who's dead?"
+[[auto|morning5]]
+
+::morning5
+None: Marten points off into the distance. You see Beaver laying on the ground.
+~
+<<set portrait="BEAVER_DEAD">>
+<<set bg="rgb(123, 151, 91)">>
+None: He's dead.
+~
+None: The other animals begin to gather.
+~
+<<set portrait="FOREST_DAY2_ALL1">>
+<<set bg="#1e542a">>
+Mayor: "Make way, make way!"
+~
+Mayor: "What happened here?"
+<<if this.SAW_MURDER>>
+[[auto|martenatehim]]
+<<else>>
+[[auto|ohno]]
+<<endif>>
+
+::martenatehim
+Marten: "It ate him! That thing ate him!"
+~
+Mayor: "What are you talking about? Move back, Marten!"
+[[auto|ohno]]
+
+::ohno
+Mayor: "Oh... oh, no..."
+~
+None: The mayor stares at Beaver. No one moves or speaks.
+
+[[Examine the body|this.goto("BODY_AT_SCENE");]]
+[[Talk to the mayor|this.goto("MAYOR_AT_SCENE");]]
+
+::BODY_AT_SCENE
+<<set portrait="BEAVER_DEAD">>
+<<set bg="rgb(123, 151, 91)">>
+None: There are deep lacerations across the body.
+~
+None: You see what you think are teeth marks. The body has been pried open and gutted.
+~
+None: You aren't sure what to do now.
+[[Talk to the mayor|this.goto("MAYOR_AT_SCENE");]]
+[[Leave|this.goto("START_LOCKDOWN");]]
+
+::MAYOR_AT_SCENE
+<<set portrait="FOREST_DAY2_ALL1">>
+<<set bg="#1e542a">>
+Fox: "Mayor, I..."
+~
+Mayor: "Not now, Fox."
+~
+Fox: "But, I think..."
+~
+Mayor: "Not now."
+<<if this.TELL_MAYOR>>
+[[auto|flyinganimal]]
+<<else>>
+[[auto|toolate]]
+<<endif>>
+
+::flyinganimal
+Fox: "Didn't Wolf tell you about the flying animal?"
+~
+Mayor: "What flying animal? I haven't seen Wolf since yesterday."
+~
+Fox: "I just thought... never mind."
+[[auto|sick]]
+
+::toolate
+Fox: "I think I know what happened..."
+~
+Mayor: "I said not now, Fox!"
+~
+<<set portrait="FOREST_DAY2">>
+None: You go quiet and turn away.
+[[auto|sick]]
+
+::sick
+<<set portrait="FOREST_DAY2">>
+None: You look over at Beaver and feel sick.
+[[auto|START_LOCKDOWN]]
+
+::START_LOCKDOWN
+<<set portrait="FOREST_DAY2_ALL2">>
+<<set bg="#1e542a">>
+Squirrel: "Wh-wh-- what happened?"
+<<if this.SAW_MURDER>>
+[[auto|saw]]
+<<else>>
+[[auto|didnt_see]]
+<<endif>>
+
+::saw
+Marten: "There was an animal in the woods. It killed him, I know it!"
+~
+Chipmunk: "Why? Why would anyone kill Beaver?"
+~
+Marten: "To eat him!"
+~
+Squirrel: "Marten, are you alright?"
+~
+<<set portrait="FOREST_DAY2_ALL1">>
+Mayor: "What are you blathering on about, Marten! Quiet down!"
+[[auto|attention]]
+
+::didnt_see
+<<set portrait="FOREST_DAY2_ALL1">>
+Raccoon: "It looks like he was... ripped open..."
+~
+<<set portrait="FOREST_DAY2_ALL2">>
+Marten: "Why would... who..."
+~
+Chipmunk: "This is horrible!"
+[[auto|attention]]
+
+::attention
+<<set portrait="FOREST_DAY2_ALL1">>
+Mayor: "May I have your attention, please!"
+~
+Mayor: "All we know right now is that Beaver is dead."
+~
+Mayor: "We don't know who, or what, did this terrible deed."
+~
+Mayor: "But we will take every effort to find the truth."
+~
+Dormouse: "Please return to your homes. The Mayor and I will conduct an investigation."
+~
+Squirrel: "Please... find out who did this."
+~
+<<set portrait="FOREST_NIGHT">>
+<<set bg="#133636">>
+<<set OPTION="???">>
+None: You walk for hours.
+~
+None: This doesn't help your restlessness, but it makes you tired.
+~
+None: It is getting late. You return to the Hollow.
+~
+<<set portrait="CAVE">>
+<<set bg="#7d6363">>
+None: As you walk to your den, you see a light in the meeting cave.
+~
+None: You approach the cave.
+~
+<<set portrait="CAVE_HARE_MOUSE">>
+None: Inside, you see the mayor and Dormouse.
+~
+Dormouse: "I saw Fox coming out of the forest, shaking like a leaf."
+~
+Dormouse: "A little later, Wolf came out looking the same."
+~
+Dormouse: "I went to see what they saw, and, well..."
+~
+Mayor: "This is terrible... it took nothing! It's already falling apart!"
+[[Keep listening]]
+
+::Keep listening
+Dormouse: "It's in their instincts. And they must feel it, right?"
+~
+Dormouse: "They can't survive on our food. They feel weak."
+~
+Mayor: "We should have prepared for this! Why didn't we think?"
+~
+Dormouse: "We failed, Hare. But what do we do now? We need a permanent fix. We can't--"
+~
+Mayor: "Be quiet, Dor! Let me think!"
+~
+Dormouse: "Look, this is bad. We thought we could do this but we failed. Give it up!"
+~
+Dormouse: "What do we say about Beaver? What about Wolf? What about--"
+~
+Mayor: "I took care of Wolf. I convinced him to leave. He's acres away by now."
+[[Keep listening|this.goto("Keep listening2");]]
+
+::Keep listening2
+Mayor: "We'll say it was... I don't know. We'll say it was that hawk."
+~
+Mayor: "We'll tell them to stay indoors for a few days until the threat passes."
+~
+Dormouse: "Well, even if that works... if Fox finds out that Wolf killed Beaver..."
+~
+Dormouse: "that he ate him..."
+~
+<<set OPTION="Eat Dormouse?">>
+Mayor: "Calm down. I will get this situation under control."
+~
+Dormouse: "We need to end this, Hare. There's no other option!"
+[[Keep listening|this.goto("Keep listening3");]]
+
+::Keep listening3
+Mayor: "Let me try, Dor. I can do this."
+~
+Dormouse: "..."
+~
+Dormouse: "Fine."
+~
+Dormouse: "But they're dying, Hare. It's only a matter of time."
+~
+Dormouse: "I'm leaving tomorrow night. With or without you."
+~
+<<set portrait="FOREST_NIGHT">>
+<<set bg="#133636">>
+None: You leave before Dormouse catches you.
+~
+<<set portrait="BLACK">>
+<<set bg="#000000">>
+<<set OPTION="Eat Raccoon?">>
+None: You return to your den for more uneasy sleep.
+~
+<<set portrait="FOREST_DAY3">>
+<<set bg="#1e542a">>
+None: You wake up and leave your den. The wind is quiet.
+~
+<<set portrait="FOREST_DAY3_RACCOON">>
+None: Raccoon appears from her den as well. She comes to greet you.
+~
+Raccoon: "Hello, Fox."
+~
+Fox: "Hello, Raccoon."
+~
+Raccoon: "..."
+~
+Raccoon: "What did you see, Fox? Out in the woods?"
+[[Explain it]]
+[[Deny it]]
+
+::Explain it
+Fox: "There was an animal. He... killed someone. I saw it happen."
+~
+Raccoon: "Oh..."
+~
+Raccoon: "Do you... do you think he killed Beaver too?"
+[[Yes|this.goto("YES_RACCOON");]]
+[[No|this.goto("NO_RACCOON");]]
+
+::YES_RACCOON
+Fox: "I... yes. It makes sense, right? He... killed Beaver. Like he killed the other animal."
+~
+Raccoon: "Yes... I think so too. It must be."
+~
+Raccoon: "..."
+~
+Raccoon: "We'd... better go back inside, I think."
+~
+Fox: "Yes."
+~
+None: Raccoon stares off into the woods for a second, then leaves.
+~
+<<set portrait="FOREST_DAY3">>
+None: You need to talk to the mayor.
+[[auto|CONFRONT]]
+
+::NO_RACCOON
+Fox: "I don't... think so."
+~
+Raccoon: "What do you mean?"
+~
+Fox: "I think it was someone else."
+~
+Raccoon: "But..."
+~
+Fox: "Well... I can't say more until I know for sure."
+~
+None: Raccoon stares off into the woods for a moment.
+~
+Raccoon: "I think... we should go back inside now."
+~
+None: Raccoon goes back into her den.
+~
+None: You need to talk to the mayor.
+[[auto|CONFRONT]]
+
+::Deny it
+Fox: "What are you talking about?"
+<<if this.SAW_MURDER>>
+[[auto|raccoon_saw]]
+<<else>>
+[[auto|raccoon_nosaw]]
+<<endif>>
+
+::raccoon_saw
+Raccoon: "Marten says you saw an animal in the woods."
+~
+Raccoon: "He said it... ate another animal."
+[[auto|raccoon2]]
+
+::raccoon_nosaw
+Raccoon: "I heard... someone said you saw something."
+[[auto|raccoon2]]
+
+::raccoon2
+Fox: "I don't know what you're talking about, Raccoon."
+~
+Raccoon: "Oh."
+~
+None: Raccoon stares off into the woods for a moment.
+~
+Raccoon: "We... we should go back inside, I think."
+~
+<<set portrait="FOREST_DAY3">>
+None: Raccoon goes back into her den.
+~
+None: You need to talk to the mayor.
+[[auto|CONFRONT]]
+
+::CONFRONT
+<<set portrait="CAVE_HARE">>
+<<set OPTION="Eat the mayor?">>
+<<set bg="#7d6363">>
+None: You find the mayor in the meeting cave. He sits in the corner with his back to you.
+[[Greet]]
+[[Confront]]
+
+::Greet
+Fox: "Hello, mayor."
+~
+None: The mayor does not respond.
+[[Confront]]
+
+::Confront
+Fox: "Why did Wolf kill Beaver?"
+~
+Mayor: "..."
+~
+Mayor: "I think you know the answer to that, Fox..."
+~
+Mayor: "A better question would be - 'Why do animals have to eat each other?'"
+~
+Mayor: "Or - 'Why did I keep that a secret from you?'"
+~
+Mayor: "Or 'Why did I think it would work?'"
+~
+None: The mayor begins to pace.
+~
+Mayor: "Some animals eat each other."
+~
+Mayor: "This is normal."
+~
+Mayor: "It's part of you, it's how your body works, it's what you need to do to survive."
+~
+Mayor: "You're dying, Fox. You should know that."
+~
+Mayor: "You are weak. You can feel it. But I suppose we accept illness we think is normal."
+~
+Mayor: "I was tired, I suppose. Of being in fear. Or not being in control."
+~
+Mayor: "I was tired of what I needed to do to survive."
+~
+Mayor: "I didn't realize that I was trying to create a utopia."
+~
+Mayor: "I think I was just scared, and I wanted a solution."
+~
+Mayor: "That's why I stole you. I stole you and I isolated you. As I did with the others."
+~
+Mayor: "Maybe it was just a test to see if it would work."
+~
+Mayor: "Maybe I thought it would work the first time."
+~
+Mayor: "I guess it's presumptuous to assume that I had any idea what I was doing. Or why."
+~
+Mayor: "I don't know."
+~
+None: The mayor stops pacing.
+~
+Mayor: "I don't know, I don't know. But it's not working."
+~
+Mayor: "A speech was good enough for Wolf... but I can't save everything with a speech."
+~
+Mayor: "Whatever this is, it's over. And I can't clean it up."
+~
+Mayor: "I'm leaving later tonight."
+~
+<<set OPTION=undefined>>
+<<set HUNGER=1.0>>
+Mayor: "Do whatever suits you."
+~
+None: The mayor sits down.
+[[Leave|this.goto("LEAVE_MAYOR");]]
+[[Eat the mayor]]
+
+::Eat the mayor
+<<set portrait="MAYOR_DEAD">>
+<<set bg="#796467">>
+None: You eat the mayor.
+~
+<<set ATE=1>>
+<<do this.renderer.madeChoice("Mayor Hare", "Ate");>>
+None: When you are finished, you leave the cave.
+[[auto|CONFRONT_DORMOUSE]]
+
+::LEAVE_MAYOR
+<<set portrait="FOREST_DAY3">>
+<<set bg="#1e542a">>
+<<set ATE=0>>
+<<set HUNGER=0.25>>
+<<do this.renderer.madeChoice("Mayor Hare", "Spared");>>
+None: You leave the cave.
+[[auto|CONFRONT_DORMOUSE]]
+
+::CONFRONT_DORMOUSE
+<<set portrait="FOREST_DAY3_MOUSE">>
+<<set bg="#1e542a">>
+None: As you leave, Dormouse approaches the cave.
+<<if this.ATE>>
+[[auto|dormouse_ate]]
+<<else>>
+[[auto|dormouse_noate]]
+<<endif>>
+
+::dormouse_ate
+Dormouse: "Fox, I..."
+~
+Dormouse: "You.... oh, oh no...."
+~
+Dormouse: "Dormouse starts tugging at his own ears."
+~
+Dormouse: "You killed him!"
+[[Leave|this.goto("LEAVE_DORMOUSE_ate");]]
+[[Eat Dormouse]]
+
+::dormouse_noate
+Dormouse: "Fox! I, uh... how are you?"
+~
+Dormouse: "Shouldn't you be inside?"
+<<if this.ATE>>
+[[Leave|this.goto("LEAVE_DORMOUSE_ate");]]
+<<else>>
+[[Leave|this.goto("LEAVE_DORMOUSE_noate");]]
+<<endif>>
+[[Eat Dormouse]]
+
+::Eat Dormouse
+<<set portrait="DORMOUSE_DEAD">>
+<<set bg="rgb(123, 151, 91)">>
+<<set ATE=1>>
+<<do this.renderer.madeChoice("Dormouse", "Ate");>>
+None: You eat Dormouse.
+<<if this.ATE>>
+[[auto|CONFRONT_MARTEN]]
+<<else>>
+[[auto|CONFRONT_MARTEN_noate]]
+<<endif>>
+
+::LEAVE_DORMOUSE_ate
+<<do this.renderer.madeChoice("Dormouse", "Spared");>>
+Fox: "I'm sorry."
+~
+Fox: "I... need to leave."
+~
+Dormouse: "Dormouse breathes deeply, then lets go of his ears."
+~
+Dormouse: "Yes, you do."
+~
+Dormouse: "You need to go as far away as you can."
+~
+<<set portrait="FOREST_DAY3">>
+None: You walk past Dormouse.
+<<if this.ATE>>
+[[auto|CONFRONT_MARTEN]]
+<<else>>
+[[auto|CONFRONT_MARTEN_noate]]
+<<endif>>
+
+::LEAVE_DORMOUSE_noate
+Fox: "Yes, I... I'll go back inside, now."
+~
+<<set portrait="FOREST_DAY3">>
+None: You walk past Dormouse.
+<<if this.ATE>>
+[[auto|CONFRONT_MARTEN]]
+<<else>>
+[[auto|CONFRONT_MARTEN_noate]]
+<<endif>>
+
+::CONFRONT_MARTEN_noate
+<<set portrait="FOREST_DAY3">>
+<<set bg="#1e542a">>
+<<set HUNGER=0.01>>
+None: You are suddenly hungry.
+~
+None: Or, you were always hungry, and you just noticed.
+~
+None: Or, rather, you noticed it, but assumed it was a part of being alive.
+~
+None: You're not sure what being alive entails, right now.
+~
+None: Although... you're sure that you're hungry.
+[[auto|CONFRONT_MARTEN]]
+
+::CONFRONT_MARTEN
+<<set portrait="FOREST_DAY3">>
+<<set bg="#1e542a">>
+None: As you make your way through the Hollow, Marten comes out of his den.
+<<if this.ATE>>
+[[auto|marten_ate]]
+<<else>>
+[[auto|marten_noate]]
+<<endif>>
+
+::marten_ate
+<<set portrait="FOREST_DAY3_MARTEN">>
+Marten: "Fox! Where are you going?"
+~
+Marten: "We shouldn't be out here..."
+~
+Marten: "We... Fox?"
+~
+Marten: "Why is there blood on your face? Are you..."
+~
+Marten: "No, I... Fox, please. Don't..."
+~
+Marten: "No. No, no, no...."
+~
+None: Your stomach growls.
+~
+Marten: "No..."
+[[Leave|this.goto("LEAVE_MARTEN");]]
+[[Eat Marten]]
+
+::marten_noate
+<<set portrait="FOREST_DAY3_MARTEN">>
+Marten: "We shouldn't be out here..."
+~
+Marten: "What if the murderer comes back?"
+~
+None: Marten looks around fervently.
+~
+Marten: "I hate this..."
+~
+None: Your stomach growls.
+~
+Marten: "Everything was so... well..."
+~
+Marten: "Why aren't we safe here anymore?"
+<<if this.ATE>>
+[[Leave|this.goto("LEAVE_MARTEN_ate");]]
+<<else>>
+[[Leave|this.goto("LEAVE_MARTEN_noate");]]
+<<endif>>
+[[Eat Marten]]
+
+::Eat Marten
+<<set portrait="MARTEN_DEAD">>
+<<set bg="rgb(123, 151, 91)">>
+<<set ATE=1>>
+<<do this.renderer.madeChoice("Marten", "Ate");>>
+None: You eat Marten.
+[[auto|CONFRONT_CHIPMUNK]]
+
+::LEAVE_MARTEN_ate
+Fox: "Marten, I didn't kill Beaver."
+~
+Fox: "But I... I did kill."
+~
+Fox: "This is who I am, I think."
+~
+Fox: "I-- I don't know. I'm..."
+~
+Fox: "I have to leave, Marten, before I do it again."
+[[auto|LEAVE_MARTEN]]
+
+::LEAVE_MARTEN_noate
+Fox: "Something's happening, Marten."
+~
+Fox: "I have to leave before it gets worse."
+~
+Marten: "What are you talking about?"
+~
+Fox: "I just-- I have to go. I'm leaving the Hollow."
+[[auto|LEAVE_MARTEN]]
+
+::LEAVE_MARTEN
+<<do this.renderer.madeChoice("Marten", "Spared");>>
+Marten: "B-but--"
+~
+Fox: "Let me go, Marten."
+~
+None: Marten looks confused and hurt.
+~
+None: After a moment, he steps aside.
+~
+<<set portrait="FOREST_DAY3">>
+None: You walk past Marten.
+[[auto|CONFRONT_CHIPMUNK]]
+
+::CONFRONT_CHIPMUNK
+<<set portrait="FOREST_DAY3">>
+<<set bg="#1e542a">>
+None: You continue on.
+<<if this.ATE>>
+[[auto|chimpunk2]]
+<<else>>
+[[auto|chipmunk_noate]]
+<<endif>>
+
+::chipmunk_noate
+None: Your legs feel shakier with each step.
+~
+None: Your hunger is heavy inside you and hard to drag around.
+[[auto|chimpunk2]]
+
+::chimpunk2
+None: You see Chipmunk ahead, blocking your path.
+<<if this.ATE>>
+[[auto|chipmunk3ate]]
+<<else>>
+[[auto|chipmunk3noate]]
+<<endif>>
+
+::chipmunk3ate
+<<set portrait="FOREST_DAY3_CHIPMUNK">>
+None: When you get close, she shuts her eyes.
+~
+Chipmunk: "Oh."
+~
+Chipmunk: "Oh dear."
+~
+Chipmunk: "I didn't want to be right."
+~
+Chipmunk: "But that's not your blood, is it?"
+~
+Chipmunk: "Her breathing become purposefully slow as she opens her eyes."
+~
+Chipmunk: "I don't know what to say."
+~
+Chipmunk: "But--"
+~
+Chipmunk: "I want you to do the right thing."
+~
+Chipmunk: "Please."
+[[Leave|this.goto("LEAVE_CHIPMUNK_ate");]]
+[[Eat Chipmunk]]
+
+
+::chipmunk3noate
+<<set portrait="FOREST_DAY3_CHIPMUNK">>
+Chipmunk: "Fox, I need to ask you a question."
+~
+<<set HUNGER=0.1>>
+Chipmunk: "I need you to be honest."
+~
+Chipmunk: "Did you kill Beaver?"
+[[Leave|this.goto("LEAVE_CHIPMUNK_noate");]]
+[[Eat Chipmunk]]
+
+
+::Eat Chipmunk
+<<set portrait="CHIPMUNK_DEAD">>
+<<set bg="rgb(123, 151, 91)">>
+<<set ATE=1>>
+<<do this.renderer.madeChoice("Chipmunk", "Ate");>>
+None: You eat Chipmunk.
+[[auto|CONFRONT_SQUIRREL]]
+
+::LEAVE_CHIPMUNK_ate
+Fox: "I'm sorry, Chipmunk."
+~
+None: Chipmunk closes her eyes and doesn't speak.
+[[auto|LEAVE_CHIPMUNK]]
+
+::LEAVE_CHIPMUNK_noate
+Fox: "No."
+~
+Fox: "But... who's to say I wouldn't have?"
+~
+Fox: "You know something's wrong, Chipmunk."
+~
+Fox: "But please don't worry. I'm leaving."
+~
+None: Chipmunk looks at you blankly.
+~
+None: Then, she nods slightly.
+[[auto|LEAVE_CHIPMUNK]]
+
+::LEAVE_CHIPMUNK
+<<do this.renderer.madeChoice("Chipmunk", "Spared");>>
+None: You leave her standing there.
+[[auto|CONFRONT_SQUIRREL]]
+
+::CONFRONT_SQUIRREL
+<<set portrait="FOREST_DAY3_NIGHT">>
+<<set bg="#133636">>
+None: The night around you gets darker as you reach the edge of the Hollow.
+<<if this.ATE>>
+[[auto|squirrel2]]
+<<else>>
+[[auto|squirrel_noate]]
+<<endif>>
+
+::squirrel_noate
+None: You need to eat something.
+~
+None: You need to eat something that will snap and squish between your teeth.
+~
+None: Something that will drip down your throat and soothe this swollen hunger.
+~
+<<set HUNGER=1.0>>
+None: Something alive, and soon to be dead.
+[[auto|squirrel2]]
+
+::squirrel2
+<<set portrait="FOREST_DAY3_SQUIRREL">>
+None: You see Squirrel's tree to the right. He emerges from it.
+~
+Squirrel: "Fox!"
+~
+Squirrel: "Shouldn't you be inside? It's dangerous out there!"
+~
+Squirrel: "Come in here! You'll be safer."
+~
+None: You can barely see Squirrel's face in the dark.
+~
+None: All you can process is your hunger.
+~
+None: A hunger that will burst inside you if you let it.
+[[Leave]]
+[[Eat Squirrel]]
+
+::Eat Squirrel
+<<set portrait="SQUIRREL_DEAD">>
+<<set bg="#375344">>
+<<set ATE=1>>
+<<do this.renderer.madeChoice("Squirrel", "Ate");>>
+None: You eat Squirrel.
+[[auto|ENDING]]
+
+::Leave
+<<do this.renderer.madeChoice("Squirrel", "Spared");>>
+Fox: "It's okay, Squirrel."
+~
+Fox: "Don't worry."
+~
+Squirrel: "Well... okay, Fox. But please be safe..."
+~
+<<set portrait="FOREST_DAY3_NIGHT">>
+None: He goes back inside.
+~
+None: You force yourself to drag the hunger on a little further.
+[[auto|ENDING]]
+
+::ENDING
+<<set portrait="BLACK">>
+<<set bg="#000000">>
+None: You leave your old home.
+~
+None: You find a new one, alone.
+~
+None: There you live a new life that feels familiar.
+~
+None: You hunt to eat.
+~
+None: Sometimes, you think about your friends.
+~
+None: Every meal makes you stronger.
+~
+None: The weakness falls off like dirt.
+~
+None: One day in Spring, you find yourself in a part of the woods you remember.
+<<if this.ATE>>
+[[auto|ENDING_ate]]
+<<else>>
+[[auto|ENDING_noate]]
+<<endif>>
+
+::ENDING_ate
+None: You find bones you remember.
+~
+None: You don't remember most of the bones you've made over the last few seasons.
+~
+None: You don't remember most of the days you used to spend by the river here.
+~
+None: You do remember how, on some days, the wind got quiet just like this.
+<<do this.renderer.fadeOut();>>
+[[auto|CREDITS]]
+
+::ENDING_noate
+None: There is nothing to see.
+~
+None: There are no animals, no voices, no movement.
+~
+None: You wonder where they went. If some went together.
+~
+None: If they found homes or empty spaces.
+~
+None: You remember feeling concern for them, for a moment.
+~
+None: Then it falls off like dirt.
+<<do this.renderer.fadeOut();>>
+[[auto|CREDITS]]
+
+::CREDITS
+None: The end.
+<<set finished=true>>
