@@ -131,7 +131,7 @@ body {
 	position: absolute;
 	width: 1em;
 	height: 1em;
-	background-image: url('./textures/fox.svg');
+	background-image: url('./textures/cursor.svg');
 	background-size: contain;
 	background-position: left top;
 	background-repeat: no-repeat;
