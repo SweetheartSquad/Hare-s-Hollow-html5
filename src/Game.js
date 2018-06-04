@@ -1,6 +1,6 @@
+import Strand from "strand-core";
 import assets from './assets';
 import size from './size';
-import Strand from "strand";
 import script from "./assets/script.strand";
 import Mouse from "./input-mouse";
 import { incrementCounter, getStats } from './Database';
