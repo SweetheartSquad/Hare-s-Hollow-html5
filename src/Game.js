@@ -158,8 +158,8 @@ class Game {
 			}
 		}
 
-		this.mouseEl.style.top = `${this.mousePos.y}px`;
-		this.mouseEl.style.left = `${this.mousePos.x}px`;
+		this.mouseEl.style.top = `${Math.floor(this.mousePos.y)}px`;
+		this.mouseEl.style.left = `${Math.floor(this.mousePos.x)}px`;
 
 		if (this.skip) {
 			this.skip -= 1;
