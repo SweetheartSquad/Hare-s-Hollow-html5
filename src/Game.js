@@ -89,7 +89,8 @@ class Game {
 		this.censored = true;
 		this.timeouts = [];
 
-		assets.audio.bgm.fade(0, 1, 7000, assets.audio.bgm.play());
+		assets.audio.bgm.play()
+		assets.audio.bgm.volume(0);
 		assets.audio.bgm.loop(true);
 
 		// mouse stuff
@@ -250,8 +251,10 @@ class Game {
 			this.options.appendChild(a);
 		}
 
-		// stats
 		if (this.strand.currentPassage.title === "menu") {
+			assets.audio.bgm.fade(assets.audio.bgm.volume(), 1, 7000);
+
+			// stats
 			const a = document.createElement("a");
 			a.className = "disabled";
 			a.href = "#";

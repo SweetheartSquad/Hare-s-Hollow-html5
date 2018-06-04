@@ -1079,3 +1079,4 @@ None: Then it falls off like dirt.
 ::CREDITS
 None: The end.
 <<set finished=true>>
+[[auto|menu]]
