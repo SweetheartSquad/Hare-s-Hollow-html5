@@ -364,6 +364,11 @@ class Game {
 			[
 				["Stats", { Ate: "Ate", Spared: "Spared" }],
 				...Object.entries(this.strand.stats)
+				.map(([key, { Ate = 0, Spared = 0 }]) => {
+					const total = Ate + Spared;
+					const ate = Math.floor(Ate/total*100);
+					return [key, { Ate: `${ate}%`, Spared: `${100-ate}%`}];
+				})
 			].map(([key, { Ate = 0, Spared = 0 }]) => {
 				const tr = document.createElement("tr");
 				[key, Ate, Spared]
