@@ -87,7 +87,7 @@ export default class Mouse {
 		this.delta.y = this.y - this.prev.y;
 	}
 	onWheel = event => {
-		this.mouseWheel = event.deltaY || event.originalEvent.wheelDelta;
+		this.mouseWheel = event.deltaY || (event.originalEvent && event.originalEvent.wheelDelta) || 0;
 	}
 
 	isDown(key) {
