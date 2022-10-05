@@ -5,7 +5,7 @@
 	"main": "./src/index.js",
 	"author": "Sean S. LeBlanc",
 	"scripts": {
-		"serve": "hs --cors -c-1 -p 80",
+		"serve": "npx http-server --cors -c-1 -p 80 public",
 		"debug": "webpack --config webpack.config.dev.js --mode development",
 		"build": "webpack --config webpack.config.prod.js --mode production",
 		"start": "run-p debug serve"
