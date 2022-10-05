@@ -31,9 +31,17 @@ export default class Mouse {
 		}
 	}
 
-	lockMouse() {
-		this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock;
-		this.element.requestPointerLock();
+	async lockMouse() {
+		if (!this.element) return;
+		try {
+			if (this.element.requestPointerLock) {
+				await this.element.requestPointerLock();
+			} else if (this.element.mozRequestPointerLock) {
+				await this.element.mozRequestPointerLock();
+			}
+		} catch (err) {
+			console.error('Failed to lock pointer', err);
+		}
 	}
 	update() {
 		this.justDown = false;
