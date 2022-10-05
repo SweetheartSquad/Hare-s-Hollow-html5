@@ -269,6 +269,9 @@ class Game {
 						this.strand.stats = stats;
 						this.strand.goto("Stats");
 					};
+				}).catch((err) => {
+					console.error('Couldnt get stats', err);
+					this.strand.stats = {};
 				});
 			} else {
 				a.innerHTML = "???";
@@ -363,7 +366,7 @@ class Game {
 			const table = document.createElement("table");
 			[
 				["Stats", { Ate: "Ate", Spared: "Spared" }],
-				...Object.entries(this.strand.stats)
+				...Object.entries(this.strand.stats || {})
 				.map(([key, { Ate = 0, Spared = 0 }]) => {
 					const total = Ate + Spared;
 					const ate = Math.floor(Ate/total*100);
