@@ -1,9 +1,8 @@
 import Strand from "strand-core";
 import assets from './assets';
-import size from './size';
 import script from "./assets/script.strand";
+import { getStats, incrementCounter } from './Database';
 import Mouse from "./input-mouse";
-import { incrementCounter, getStats } from './Database';
 
 function preprocessScript(script) {
 	let res = '';
@@ -173,7 +172,14 @@ class Game {
 	}
 
 	madeChoice(name, value) {
-		incrementCounter(name, value);
+		try {
+			incrementCounter(name, value);
+		} catch (err) {
+			console.error(
+				'Failed to increment choice',
+				err
+			);
+		}
 	}
 
 	onClickAuto = title => {
