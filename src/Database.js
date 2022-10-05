@@ -1,5 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { get, getDatabase, ref, runTransaction } from "firebase/database";
+
+/** @type {import('firebase/database').Database} */
+let database;
 try {
 	const config = {
 		apiKey: "AIzaSyDsq8W-7fmrcdk8nqYoNCEo60g-yKB6ubM",
@@ -10,7 +13,7 @@ try {
 		messagingSenderId: "189064406199"
 	};
 	initializeApp(config);
-	const database = getDatabase();
+	database = getDatabase();
 } catch (err) {
 	console.error(
 		'Failed to init database',
@@ -19,11 +22,14 @@ try {
 }
 
 export function incrementCounter(counter, value) {
-	const ref = database.ref(`${counter}/${value}`);
-	return ref.transaction(count => count + 1);
+	return runTransaction(ref(database, counter), post => {
+		if (post) {
+			post[value] += 1;
+		}
+		return post;
+	});
 }
 
 export function getStats() {
-	return database.ref().once('value')
-		.then(snapshot => snapshot.val());
+	return get(ref(database)).then((snapshot) => snapshot.val());
 }
